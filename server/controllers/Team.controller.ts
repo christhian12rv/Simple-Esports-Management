@@ -113,7 +113,7 @@ class TeamController {
 			return res.status(200).send({ message, team, });
 		} catch(e) {
 			const message = 'Some internal error occurred while deleting team';
-			logger.error(message);
+			logger.error(e);
 
 			return res.status(500).send({ message, });
 		}

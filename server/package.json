@@ -4,7 +4,9 @@
   "description": "Server of Simple-Esports-Management",
   "main": "index.js",
   "scripts": {
+    "start": "concurrently \"npm run server\" \"npm run client\"",
     "server": "eslint . --ext .ts && ts-node-dev --respawn index.ts",
+    "client": "cd ../client &&  npm start",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Christhian Rezende Vieira",
