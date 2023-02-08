@@ -2,7 +2,7 @@ version: '3.9'
 services:
   postgres:
     image: postgres:latest
-    container_name: postgres
+    container_name: esports-management-postgres
     hostname: postgres
     ports:
       - 8001:8001
