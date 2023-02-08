@@ -8,8 +8,7 @@ class ButtonCustom extends React.Component<Props, State> {
 	}
 
 	render() {
-		const { onClick, } = this.props;
-		return <ButtonStyled onClick={() => onClick}>{this.props.children}</ButtonStyled>;
+		return <ButtonStyled {...this.props}>{this.props.children}</ButtonStyled>;
 	}
 }
 

@@ -19,7 +19,7 @@ model Player {
   id        Int       @id @default(autoincrement())
   name      String
   age       Int
-  team      Team?      @relation(fields: [teamId], references: [id], onDelete: SetNull)
+  team      Team?     @relation(fields: [teamId], references: [id], onDelete: SetNull)
   teamId    Int?
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt

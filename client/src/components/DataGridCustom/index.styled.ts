@@ -7,9 +7,11 @@ export default styled(DataGrid)(({ theme, }) => ({
 	borderRadius: '1em',
 	'& .MuiDataGrid-row:hover': {
 		backgroundColor: theme.palette.primary.ultraLight,
+		cursor: 'pointer',
 	},
 	'& .MuiDataGrid-cell:focus': {
 		border: 'none',
 		outline: 'none',
 	},
+	width: '100%',
 }));

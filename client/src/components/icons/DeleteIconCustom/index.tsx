@@ -7,15 +7,12 @@ class DeleteIconCustom extends React.Component<Props, State> {
 	}
 
 	render() {
-		return <DeleteIconStyled style={this.props.style} onClick={() => this.props.onClick()}/>;
+		return <DeleteIconStyled/>;
 	}
 }
 
 type State = object
 
-type Props = {
-	style?: any,
-	onClick?: any,
-};
+type Props = object
 
 export default DeleteIconCustom;

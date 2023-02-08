@@ -5,36 +5,36 @@ import teamService from '../../services/Team.service';
 export const create = [
 	body('name')
 		.notEmpty()
-		.withMessage('Name cannot be null')
+		.withMessage('Nome é obrigatório')
 		.bail()
 		.isString()
-		.withMessage('Name is invalid'),
+		.withMessage('Nome é inválido'),
 
 	body('age')
 		.notEmpty()
-		.withMessage('Age cannot be null')
+		.withMessage('Idade é obrigatória')
 		.bail()
 		.isNumeric()
-		.withMessage('Age is invalid')
+		.withMessage('Idade é inválida')
 		.bail()
-		.isLength({ min: 0, })
-		.withMessage('Age is invalid'),
+		.isLength({ min: 1, })
+		.withMessage('Idade é inválida'),
 
 	body('teamId')
 		.notEmpty()
-		.withMessage('TeamId cannot be null')
+		.withMessage('timeId é obrigatório')
 		.bail()
 		.isNumeric()
-		.withMessage('Age is invalid')
+		.withMessage('Idade é inválida')
 		.bail()
 		.custom(async (value) => {
 			const team = await teamService.findById(value);
 
 			if (!team)
-				throw new Error(`There is no team with team id ${value}`);
+				throw new Error(`Não existe um time com id ${value}`);
 				
 			if (team.players.length >= 5)
-				throw new Error(`The maximum number of players in the team with id ${value} has been reached`);
+				throw new Error(`O número máximo de jogadores no time com id ${value} já foi atingido`);
 
 			return true;
 		})
@@ -46,45 +46,45 @@ export const update = [
 			const player = await playerService.findById(Number(value));
 
 			if (!player)
-				throw new Error(`There is no player with id ${value}`);
+				throw new Error(`Não existe um jogador com id ${value}`);
 
 			return true;
 		}),
 
 	body('name')
 		.notEmpty()
-		.withMessage('Name cannot be null')
+		.withMessage('Nome é obrigatório')
 		.bail()
 		.isString()
-		.withMessage('Name is invalid'),
+		.withMessage('Nome é inválido'),
 
 	body('age')
 		.notEmpty()
-		.withMessage('Age cannot be null')
+		.withMessage('Idade é obrigatória')
 		.bail()
 		.isNumeric()
-		.withMessage('Age is invalid')
+		.withMessage('Idade é inválida')
 		.bail()
-		.isLength({ min: 0, })
-		.withMessage('Age is invalid'),
+		.isLength({ min: 1, })
+		.withMessage('Idade é inválida'),
 
 	body('teamId')
 		.notEmpty()
-		.withMessage('TeamId cannot be null')
+		.withMessage('timeId é obrigatório')
 		.bail()
 		.isNumeric()
-		.withMessage('Age is invalid')
+		.withMessage('Idade é inválida')
 		.bail()
 		.custom(async (value, { req, }) => {
 			const team = await teamService.findById(value);
 
 			if (!team)
-				throw new Error(`There is no team with team id ${value}`);
+				throw new Error(`Não existe um time com id ${value}`);
 
 			const player = await playerService.findById(Number(req.params.id));
 
 			if (player.teamId != value && team.players.length >= 5)
-				throw new Error(`The maximum number of players in the team with id ${value} has been reached`);
+				throw new Error(`O número máximo de jogadores no time com id ${value} já foi atingido`);
 
 			return true;
 		})
@@ -96,7 +96,7 @@ export const _delete = [
 			const player = await playerService.findById(Number(value));
 
 			if (!player)
-				throw new Error(`There is no player with id ${value}`);
+				throw new Error(`Não existe um jogador com id ${value}`);
 
 			return true;
 		})

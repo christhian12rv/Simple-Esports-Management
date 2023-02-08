@@ -4,15 +4,19 @@ import teamService from '../../services/Team.service';
 export const create = [
 	body('name')
 		.notEmpty()
-		.withMessage('Name cannot be null')
+		.withMessage('Nome é obrigatório')
 		.bail()
 		.isString()
-		.withMessage('Name is invalid')
+		.withMessage('Nome é inválido')
+		.bail()
+		.isLength({ min: 2, })
+		.withMessage('Nome deve conter no mínimo 2 caracteres')
+		.bail()
 		.custom(async (value) => {
 			const team = await teamService.findByName(value);
 
 			if (team)
-				throw new Error(`There is already a team with name ${value}`);
+				throw new Error(`Já existe um time com nome ${value}`);
 
 			return true;
 		})
@@ -24,17 +28,26 @@ export const update = [
 			const team = await teamService.findById(Number(value));
 
 			if (!team)
-				throw new Error(`There is no team with id ${value}`);
+				throw new Error(`Não existe um time com id ${value}`);
 
 			return true;
 		}),
 
 	body('name')
 		.notEmpty()
-		.withMessage('Name cannot be null')
+		.withMessage('Nome é obrigatório')
 		.bail()
 		.isString()
-		.withMessage('Name is invalid')
+		.withMessage('Nome é inválido')
+		.bail()
+		.custom(async (value) => {
+			const team = await teamService.findByName(value);
+
+			if (team)
+				throw new Error(`Já existe um time com nome ${value}`);
+
+			return true;
+		})
 ];
 
 export const _delete = [
@@ -43,7 +56,7 @@ export const _delete = [
 			const team = await teamService.findById(Number(value));
 
 			if (!team)
-				throw new Error(`There is no team with id ${value}`);
+				throw new Error(`Não existe um time com id ${value}`);
 
 			return true;
 		})

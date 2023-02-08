@@ -6,17 +6,37 @@ import formatErrors from '../utils/formatErrors';
 
 class TeamController {
 	public async findAll(req: Request, res: Response): Promise<Response> {
-		logger.info(`Calling findAll of ${req.originalUrl}`);
+		logger.info(`Chamando findAll de ${req.originalUrl}`);
 
 		try {
 			const teams = await teamService.findAll();
 			
-			const message = 'Teams searched successfully';
+			const message = 'Times buscados com sucesso';
 			logger.info(message);
 
 			return res.status(200).send({ message, teams, });
 		} catch(e) {
-			const message = 'Some internal error occurred while searching teams';
+			const message = 'Ocorreram erros internos ao buscar times';
+			logger.error(message);
+
+			return res.status(500).send({ message, });
+		}
+	}
+
+	public async findById(req: Request, res: Response): Promise<Response> {
+		logger.info(`Chamando findById de ${req.originalUrl}`);
+
+		const { id, } = req.params;
+
+		try {
+			const team = await teamService.findById(Number(id));
+			
+			const message = 'Time buscado com sucesso';
+			logger.info(message);
+
+			return res.status(200).send({ message, team, });
+		} catch(e) {
+			const message = 'Ocorreram erros internos ao buscar time';
 			logger.error(message);
 
 			return res.status(500).send({ message, });
@@ -24,19 +44,19 @@ class TeamController {
 	}
 
 	public async findByName(req: Request, res: Response): Promise<Response> {
-		logger.info(`Calling findByName of ${req.originalUrl}`);
+		logger.info(`Chamando findByName de ${req.originalUrl}`);
 
 		const { name, } = req.params;
 
 		try {
 			const team = await teamService.findByName(name);
 			
-			const message = 'Team searched successfully';
+			const message = 'Time buscado com sucesso';
 			logger.info(message);
 
 			return res.status(200).send({ message, team, });
 		} catch(e) {
-			const message = 'Some internal error occurred while searching team';
+			const message = 'Ocorreram erros internos ao buscar time';
 			logger.error(message);
 
 			return res.status(500).send({ message, });
@@ -44,23 +64,27 @@ class TeamController {
 	}
 
 	public async create(req: Request, res: Response): Promise<Response> {
-		logger.info(`Calling create of ${req.originalUrl}`);
+		logger.info(`Chamando create de ${req.originalUrl}`);
+
+		logger.info('body',req.body);
 
 		const errors = validationResult(req);
-		if (!errors.isEmpty()) 
-			return res.status(400).json({ errors: formatErrors(errors.array()), message: 'Ocurred some errors while creating team', });
-		
+		if (!errors.isEmpty()) {
+			const message = 'Ocorreram alguns erros ao criar time';
+			logger.error(message);
+			return res.status(400).json({ errors: formatErrors(errors.array()), message, });
+		}
 		const data = req.body;
 
 		try {
 			const team = await teamService.create(data);
 			
-			const message = 'Team created successfully';
+			const message = 'Time criado com sucesso';
 			logger.info(message);
 
 			return res.status(200).send({ message, team, });
 		} catch(e) {
-			const message = 'Some internal error occurred while creating team';
+			const message = 'Ocorreram alguns erros internos ao criar time';
 			logger.error(message);
 
 			return res.status(500).send({ message, });
@@ -68,26 +92,28 @@ class TeamController {
 	}
 
 	public async update(req: Request, res: Response): Promise<Response> {
-		logger.info(`Calling update of ${req.originalUrl}`);
+		logger.info(`Chamando update de ${req.originalUrl}`);
 
 		const errors = validationResult(req);
 		if (!errors.isEmpty()) 
-			return res.status(400).json({ errors: formatErrors(errors.array()), message: 'Ocurred some errors while updating team', });
+			return res.status(400).json({ errors: formatErrors(errors.array()), message: 'Ocorreram alguns erros ao atualizar time', });
 		
 		const data = {
 			...req.body,
 			id: Number(req.params.id),
 		};
 
+		logger.info(data);
+
 		try {
 			const team = await teamService.update(data);
 			
-			const message = `Team with id ${data.id} updated successfully`;
+			const message = `Time com id ${data.id} atualizado com sucesso`;
 			logger.info(message);
 
 			return res.status(200).send({ message, team, });
 		} catch(e) {
-			const message = 'Some internal error occurred while updating team';
+			const message = 'Ocorreram alguns erros internos ao atualizar time';
 			logger.error(message);
 
 			return res.status(500).send({ message, });
@@ -95,11 +121,11 @@ class TeamController {
 	}
 
 	public async delete(req: Request, res: Response): Promise<Response> {
-		logger.info(`Calling delete of ${req.originalUrl}`);
+		logger.info(`Chamando delete de ${req.originalUrl}`);
 
 		const errors = validationResult(req);
 		if (!errors.isEmpty()) 
-			return res.status(400).json({ errors: formatErrors(errors.array()), message: 'Ocurred some errors while deleting team', });
+			return res.status(400).json({ errors: formatErrors(errors.array()), message: 'Ocorreram alguns erros ao deletar time', });
 		
 
 		const { id, } = req.params;
@@ -107,12 +133,12 @@ class TeamController {
 		try {
 			const team = await teamService.delete(Number(id));
 			
-			const message = `Team with id ${id} deleted successfully`;
+			const message = `Time com id ${id} deletado com sucesso`;
 			logger.info(message);
 
 			return res.status(200).send({ message, team, });
 		} catch(e) {
-			const message = 'Some internal error occurred while deleting team';
+			const message = 'Ocorreram alguns erros internos ao deletar time';
 			logger.error(e);
 
 			return res.status(500).send({ message, });

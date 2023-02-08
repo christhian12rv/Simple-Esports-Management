@@ -1,4 +1,6 @@
+import { Prisma } from '@prisma/client';
 import prisma from '../config/db';
+import logger from '../config/logger';
 import TeamInterface from '../Interfaces/Team.interface';
 
 class TeamService {
@@ -70,9 +72,6 @@ class TeamService {
 		const team = await prisma.team.delete({
 			where: {
 				id,
-			},
-			include: {
-				players: true,
 			},
 		});
 
