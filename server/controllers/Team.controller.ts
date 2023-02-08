@@ -17,7 +17,7 @@ class TeamController {
 			return res.status(200).send({ message, teams, });
 		} catch(e) {
 			const message = 'Ocorreram erros internos ao buscar times';
-			logger.error(message);
+			logger.error(e);
 
 			return res.status(500).send({ message, });
 		}
