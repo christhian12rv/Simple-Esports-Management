@@ -1,6 +1,5 @@
 import { Box, Typography } from '@mui/material';
 import React from 'react';
-import TeamInterface from '../../interfaces/Team.interface';
 import { GridValueGetterParams, GridRenderCellParams, ptBR, GridActionsCellItem, GridRowParams } from '@mui/x-data-grid';
 import DataGridCustom from '../../components/DataGridCustom';
 import LinkCustom from '../../components/LinkCustom';

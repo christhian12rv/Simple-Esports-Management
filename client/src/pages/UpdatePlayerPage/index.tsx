@@ -5,7 +5,6 @@ import ButtonCustom from '../../components/ButtonCustom';
 import ArrowCircleLeftIconCustom from '../../components/icons/ArrowCircleLeftIconCustom';
 import LinkCustom from '../../components/LinkCustom';
 import SnackbarCustom from '../../components/SnackbarCustom';
-import TableContainerCustom from '../../components/TableContainerCustom';
 import withRouter from '../../components/utils/WithRouter';
 import PlayerInterface from '../../interfaces/Player.interface';
 import TeamInterface from '../../interfaces/Team.interface';

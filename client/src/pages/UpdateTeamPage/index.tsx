@@ -1,4 +1,4 @@
-import { Alert, AlertColor, Box, TableContainer, Table, TableHead, TableRow, TableBody, TableCell, TextField, Typography } from '@mui/material';
+import { Alert, AlertColor, Box, Table, TableHead, TableRow, TableBody, TableCell, TextField, Typography } from '@mui/material';
 import React from 'react';
 import { NavigateFunction } from 'react-router-dom';
 import ButtonCustom from '../../components/ButtonCustom';
@@ -7,7 +7,6 @@ import LinkCustom from '../../components/LinkCustom';
 import SnackbarCustom from '../../components/SnackbarCustom';
 import TableContainerCustom from '../../components/TableContainerCustom';
 import withRouter from '../../components/utils/WithRouter';
-import PlayerInterface from '../../interfaces/Player.interface';
 import TeamInterface from '../../interfaces/Team.interface';
 
 class UpdateTeamPage extends React.Component<Props, States> {

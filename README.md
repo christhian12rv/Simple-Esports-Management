@@ -23,7 +23,7 @@
 
 
 -   [Typescript](https://www.typescriptlang.org)
--   [NodeJS](https://nodejs.org/en/)
+-   [NodeJS v16.18.0](https://nodejs.org/en/download/releases/)
 -   [Express](https://expressjs.com/)
 -   [Prisma](https://www.prisma.io)
 -   [Postgres](https://www.postgresql.org)
@@ -43,7 +43,7 @@ Se preferir, pode-se rodar o projeto via Docker e Docker-Compose. Para isso, é 
 
 #### Node
 
-Outra maneira é instalar todas as ferramentas necessárias para rodar o projeto. A primeira a ser instalada é o [NodeJS](https://nodejs.org/en/).
+Outra maneira é instalar todas as ferramentas necessárias para rodar o projeto. A primeira a ser instalada é o [NodeJS](https://nodejs.org/en/). <ins>**OBS: Lembre-se de instalar a versão v16.18.0, pois é mais garantida de o projeto funcionar**</ins>.
 
 -   #### Instalação do Node no Windows
 
@@ -78,25 +78,25 @@ Outra maneira é instalar todas as ferramentas necessárias para rodar o projeto
 
 1. Clone o repositório
     ```sh
-    https://github.com/christhian12rv/Simple-Esports-Management
+    $ git clone https://github.com/christhian12rv/Simple-Esports-Management.git
     ```
     
 #### Docker
 
 2. Faça o build do projeto
     ```sh
-    docker-compose build
+    $ docker-compose build
     ```
     
 #### Sem Docker
 
 2. Vá para a pasta /server e instale os pacotes npm
     ```sh
-    npm install
+    $ npm install
     ```
 3. Vá para a pasta /client e instale os pacotes npm
     ```sh
-    npm install
+    $ npm install
     ```
 
 ### Rodando o projeto
@@ -105,26 +105,36 @@ Outra maneira é instalar todas as ferramentas necessárias para rodar o projeto
 
 1. Rode o projeto. Se preferir, pode-se adicionar o comando "-d" para rodar em background.
     ```sh
-    docker-compose up
+    $ docker-compose up
     ```
 2. Será necessário rodar as migrations no banco de dados na primeira vez que subir o projeto.
     Para isso, abra outro terminal e execute o seguinte comando
     ```sh
-    docker exec esports-management-server npx prisma migrate dev
+    $ docker exec esports-management-server npx prisma migrate dev
     ```
 3. Para finalizar os containeres, rode o seguinte comando
     ```sh
-    docker-compose down
+    $ docker-compose down
     ```
 
 #### Sem Docker
 
-Primeiro, crie um arquivo .env em /server/src. Em seguida, altere o arquivo .env
+1. Crie um arquivo .env em /server/src. Em seguida, altere o arquivo .env
+    ```sh
+    PORT=PORTA_DO_SEU_SERVIDOR
+    DATABASE_URL=postgresql://{USUARIO}:{SENHA}@{HOST}:{PORTA}/esports-management?schema=public&connect_timeout=300
+    ```
 
-```sh
-PORT=porta_do_seu_servidor
-DATABASE_URL=postgresql://{USUARIO}:{SENHA}@{HOST}:{PORTA}/esports-management?schema=public&connect_timeout=300
-```
+2. Na primeira vez que for rodar o projeto, vá para a pasta /server e rode os 2 seguintes comandos
+    ```sh
+    $ npx prisma generate
+    $ npx prisma migrate dev
+    ```
+    
+3. Na primeira vez que for rodar o projeto, vá para a pasta /client, acesse o arquivo package.json e no final altere a seguinte linha:
+    ```sh
+    "proxy": "http://localhost:{PORTA_DO_SEU_SERVIDOR}"
+    ```
 
 Para executar o front-end e o back-end juntos, vá para a pasta /server e execute
 
