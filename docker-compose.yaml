@@ -26,7 +26,7 @@ services:
     depends_on:
       - postgres
     env_file:
-      - ./server/.env
+      - ./server/.env-docker
     ports:
       - "9000:9000"
     restart: always
