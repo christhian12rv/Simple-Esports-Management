@@ -119,7 +119,7 @@ Outra maneira é instalar todas as ferramentas necessárias para rodar o projeto
 
 #### Sem Docker
 
-1. Crie um arquivo .env em /server/src. Em seguida, altere o arquivo .env
+1. Crie um arquivo .env em /server. Em seguida, altere o arquivo .env
     ```sh
     PORT=PORTA_DO_SEU_SERVIDOR
     DATABASE_URL=postgresql://{USUARIO}:{SENHA}@{HOST}:{PORTA}/esports-management?schema=public&connect_timeout=300
